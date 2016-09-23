@@ -9,7 +9,7 @@ public class Game {
 	static Random rng=new Random();
 
 	final int height = 32, width=64, roomAmount=10, maxRoomHeight=8, maxRoomWidth=8, minRoomHeight=4, minRoomWidth=4;
-	final char ROOM_ATT = '.', CORR_ATT = '-';
+	final char ROOM_ATT = ' ', CORR_ATT = '-';
 
 	Tile[][] field = new Tile[height][width];
 	ArrayList<Room> rooms = new ArrayList<Room>(roomAmount);
