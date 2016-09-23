@@ -6,11 +6,8 @@ import java.util.ArrayList;
 public class Tile {
 	int x, y;
 	char attribute;
-	/*
-	  	there can be multiple units on a tile
-		but only one actor
-		maybe a boolean occupied?
-	*/
+	boolean occupied;
+	
 	ArrayList<Unit> units = new ArrayList<Unit>();
 	
 	public Tile(int x, int y){
@@ -19,6 +16,7 @@ public class Tile {
 		attribute = '#';
 	}
 	
+	@Override
 	public String toString(){
 		//check for tile contents
 		if(units.size() > 0){
@@ -30,7 +28,17 @@ public class Tile {
 		return Character.toString(attribute);
 	}
 	
-	public void pushUnit(Unit u){
+	public void pushUnit(Unit u) {
 		this.units.add(u);
+		occupied = checkOccupied();
+	}
+	
+	public boolean checkOccupied(){
+		for(Unit u : units){
+			if(u instanceof Actor){
+				return true;
+			}
+		}
+		return false;
 	}
 }

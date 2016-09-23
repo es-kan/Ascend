@@ -1,6 +1,7 @@
 package ascend;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Game {
@@ -16,6 +17,8 @@ public class Game {
 	
 	//all actors go in here!
 	ArrayList<Actor> actors = new ArrayList<Actor>();
+	//and all items here. No items yet though.
+	ArrayList<Item> items = new ArrayList<Item>();
 	
 	
 	//MAIN!!!!!
@@ -27,6 +30,7 @@ public class Game {
 		game.removeRoomTilesFromCorridors();
 		game.setTileAttributes();
 		game.initHero();
+		game.initEnemies(5);
 		printField(game);
 	}
 	
@@ -40,7 +44,8 @@ public class Game {
 			field[y] = row;
 		}
 	}
-	//this method prints the Tile char 'attribute' for each Tile in the field.
+	
+	//this method prints the Tile char 'attribute' for each Tile in the field (to the console).
 	static public void printField(Game game){
 		for(int y=0; y<game.height; y++){
 			for(int x=0; x<game.width; x++){
@@ -54,7 +59,7 @@ public class Game {
 	public Room createRoom(){
 		boolean isBuilding = true;
 		int topLeftX, topLeftY, roomWidth, roomHeight; //x and y are the coordinates of the top left corner of the Room to be created
-		loop: do{	
+		createRoomLoop: do{	
 			topLeftX = rng.nextInt(width - 2) + 1;
 			topLeftY =	rng.nextInt(height - 2) + 1;
 			//ensure generated room size is between established mins and maxes
@@ -62,7 +67,7 @@ public class Game {
 			roomHeight = rng.nextInt(maxRoomHeight - minRoomHeight) + minRoomWidth; 
 			//test if new room would be out of bounds in field, or manifest at one of the outer edges
 			if((topLeftX + roomWidth > width - 1 || topLeftY + roomHeight > height - 1)){
-				continue loop;
+				continue createRoomLoop;
 			}
 			isBuilding = false;
 		} while(isBuilding);
@@ -152,7 +157,27 @@ public class Game {
 	
 	public void initHero(){
 		Hero hero = new Hero(this);
-		rooms.get(rng.nextInt(roomAmount - 1)).getRandomTile().pushUnit(hero);
+		placeUnit(hero);
 		actors.add(hero);
+	}
+	
+	//only makes goblins for now. The goblins, they do nothing.
+	public void initEnemies(int amountOfEnemies){
+		Enemy[] newEnemies = new Enemy[amountOfEnemies];
+		for(int i=0; i<amountOfEnemies; i++){
+			Goblin goblin = new Goblin(this);
+			placeUnit(goblin);
+			newEnemies[i] = goblin;
+		}
+		actors.addAll(Arrays.asList(newEnemies));
+	}
+	
+	public void placeUnit(Unit u){
+		Tile targetTile = rooms.get(rng.nextInt(roomAmount - 1)).getRandomTile();
+		if(!targetTile.occupied){
+			targetTile.pushUnit(u);
+		} else {
+			placeUnit(u);
+		}
 	}
 }
