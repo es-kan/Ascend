@@ -1,11 +1,10 @@
 package ascend;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Random;
 
 //this object has four integer that define the boundaries of the room
-//zet 2d array om in normaal.
 public class Room {
 	int x1, x2, y1, y2;
-	//Tile[][] tiles = new Tile[y2-y1+1][x2-x2+1];
 	ArrayList<Tile> tiles = new ArrayList<Tile>((y2-y1+1)*(x2-x2+1));
 	public Room(int x1, int x2, int y1, int y2){
 		this.x1=x1;

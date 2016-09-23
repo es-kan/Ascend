@@ -6,7 +6,7 @@ import java.util.Random;
 public class Game {
 	
 	static Random rng=new Random();
-	final int height = 32, width=32, roomAmount=10, maxRoomHeight=8, maxRoomWidth=8, minRoomHeight=4, minRoomWidth=4;
+	final int height = 32, width=64, roomAmount=10, maxRoomHeight=8, maxRoomWidth=8, minRoomHeight=4, minRoomWidth=4;
 	Tile[][] field = new Tile[height][width];
 	ArrayList<Room> rooms = new ArrayList<Room>(roomAmount);
 	ArrayList<Tile> corridorTiles = new ArrayList<Tile>();
@@ -18,11 +18,12 @@ public class Game {
 		
 		game.createField(); //adds tiles to field
 		game.createMultipleRooms();
+		game.removeRoomTilesFromCorridors();
 		game.setTileAttributes();
 		printField(game);
 	}
 	
-	//this method creates a field of tiles with Height and Width
+	//this method creates a field of tiles with height height and width width
 	public void createField(){
 		for(int y=0; y<height; y++){
 			Tile[] row = new Tile[width];
@@ -36,11 +37,12 @@ public class Game {
 	static public void printField(Game game){
 		for(int y=0; y<game.height; y++){
 			for(int x=0; x<game.width; x++){
-				System.out.print(game.field[x][y].attribute);
+				System.out.print(game.field[y][x].attribute);
 			}
 			System.out.println();
 		}
 	}
+	
 	//this method creates one Room object within the boundaries of the field.
 	public Room createRoom(){
 		boolean isBuilding = true;
@@ -89,8 +91,6 @@ public class Game {
 					rooms.add(newRoom);
 					setCorridors(rooms.get(i-1), newRoom);
 					i++;
-					//draw corridor to rooms.get(i - 1)
-					
 				}
 			}
 		}
@@ -120,11 +120,25 @@ public class Game {
 	
 	public void setTileAttributes(){
 		for(Tile corridorTile : corridorTiles){
-			corridorTile.attribute = '.';
+			corridorTile.attribute = '-';
 		}
 		for(Room room : rooms){
 			for(Tile roomTile : room.tiles){
 				roomTile.attribute = '.';
+			}
+		}
+	}
+	
+	public void removeRoomTilesFromCorridors(){
+		ArrayList<Tile> roomTiles = new ArrayList<Tile>(); 
+		for(Room room : rooms){
+			for(Tile tile : room.tiles){
+				roomTiles.add(tile);
+			}
+		}
+		for(Tile tile : roomTiles){
+			if(corridorTiles.contains(tile)){
+				corridorTiles.remove(tile);
 			}
 		}
 	}
