@@ -6,10 +6,16 @@ import java.util.Random;
 public class Game {
 	
 	static Random rng=new Random();
+	
 	final int height = 32, width=64, roomAmount=10, maxRoomHeight=8, maxRoomWidth=8, minRoomHeight=4, minRoomWidth=4;
+	final char ROOM_ATT = '.', CORR_ATT = '-';
+	
 	Tile[][] field = new Tile[height][width];
 	ArrayList<Room> rooms = new ArrayList<Room>(roomAmount);
 	ArrayList<Tile> corridorTiles = new ArrayList<Tile>();
+	
+	//all actors go in here!
+	ArrayList<Actor> actors = new ArrayList<Actor>();
 	
 	
 	//MAIN!!!!!
@@ -20,6 +26,7 @@ public class Game {
 		game.createMultipleRooms();
 		game.removeRoomTilesFromCorridors();
 		game.setTileAttributes();
+		game.initHero();
 		printField(game);
 	}
 	
@@ -37,7 +44,7 @@ public class Game {
 	static public void printField(Game game){
 		for(int y=0; y<game.height; y++){
 			for(int x=0; x<game.width; x++){
-				System.out.print(game.field[y][x].attribute);
+				System.out.print(game.field[y][x]);
 			}
 			System.out.println();
 		}
@@ -120,11 +127,11 @@ public class Game {
 	
 	public void setTileAttributes(){
 		for(Tile corridorTile : corridorTiles){
-			corridorTile.attribute = '-';
+			corridorTile.attribute = CORR_ATT;
 		}
 		for(Room room : rooms){
 			for(Tile roomTile : room.tiles){
-				roomTile.attribute = '.';
+				roomTile.attribute = ROOM_ATT;
 			}
 		}
 	}
@@ -141,5 +148,11 @@ public class Game {
 				corridorTiles.remove(tile);
 			}
 		}
+	}
+	
+	public void initHero(){
+		Hero hero = new Hero(this);
+		rooms.get(rng.nextInt(roomAmount - 1)).getRandomTile().pushUnit(hero);
+		actors.add(hero);
 	}
 }
