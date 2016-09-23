@@ -9,6 +9,7 @@ public class KeyboardInput {
 	private int dy;
 	private int y;
 	
+	//move object
 	public void move(){
 		x += dx;
 		y += dy;
@@ -22,6 +23,7 @@ public class KeyboardInput {
 		return y;
 	}
 	
+	//movement when up, down, left or right is pressed
 	public void keyPressed(KeyEvent e){
 		
 		int key = e.getKeyCode();
@@ -43,7 +45,7 @@ public class KeyboardInput {
 			}
 	
 	}
-	
+	//action when up, down, left or right is released
 	public void keyReleased(KeyEvent e){
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_LEFT){
