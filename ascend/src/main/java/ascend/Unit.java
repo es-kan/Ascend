@@ -1,8 +1,9 @@
 package ascend;
 
-public abstract class Unit {
+public abstract class Unit implements Comparable<Unit>{
 	//temporary set to 'U' to avoid nullPointers?
 	char attribute = 'U';
+	int comparisonInteger = 0;
 	
 	//the game this Unit is in.
 	Game game;
@@ -11,4 +12,13 @@ public abstract class Unit {
 		this.game = game;
 	}
 	
+	public int compareTo(Unit u){
+		if(this.comparisonInteger > u.comparisonInteger){
+			return 1;
+		} else if (this.comparisonInteger < u.comparisonInteger){
+			return -1;
+		} else {
+			return 0;
+		}
+	}
 }

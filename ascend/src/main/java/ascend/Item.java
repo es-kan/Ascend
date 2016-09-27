@@ -1,7 +1,8 @@
 package ascend;
 
-public class Item extends Unit {
+public abstract class Item extends Unit {
 	public Item(Game game){
 		super(game);
+		attribute = 'I';
 	}
 }
