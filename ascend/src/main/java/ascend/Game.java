@@ -33,8 +33,8 @@ public class Game {
 		game.setTileAttributes();
 		game.initHero();
 		game.initEnemies(5);
-		printField(game);
-		//game.testGson();
+		//printField(game);
+		game.testGson();
 	}
 	
 	//this method creates a field of tiles with height height and width width
