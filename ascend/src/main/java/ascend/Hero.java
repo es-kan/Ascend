@@ -5,4 +5,8 @@ public class Hero extends Actor {
 		super(game);
 		attribute = 'H';
 	}
+	
+	public void printPosition(){
+		System.out.println(currentPosition.x + " " + currentPosition.y);
+	}
 }

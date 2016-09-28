@@ -4,6 +4,7 @@ public abstract class Unit implements Comparable<Unit>{
 	//temporary set to 'U' to avoid nullPointers?
 	char attribute = 'U';
 	int comparisonInteger = 0;
+	public Tile currentPosition;
 	
 	//the game this Unit is in.
 	Game game;

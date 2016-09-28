@@ -1,44 +1,50 @@
 package ascend;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
-//Tile object contains x and y coordinates, a char representation, and a list of Units occupying it.
+//Tile object contains x and y coordinates, a char representation, and a Unit occupying it, if any.
 public class Tile {
+
 	int x, y;
 	char attribute;
 	boolean occupied;
+	Unit unit;
 	
-	ArrayList<Unit> units = new ArrayList<Unit>();
+	//init TileTypes and map them to chars.
+	enum TileType{WALL_TILE, FLOOR_TILE};
+	static HashMap<TileType, Character> typeAttributes = new HashMap<TileType, Character>();
+	static{	typeAttributes.put(TileType.WALL_TILE, '#');
+			typeAttributes.put(TileType.FLOOR_TILE, '.');
+	}
 	
 	public Tile(int x, int y){
 		this.x=x;
 		this.y=y;
-		attribute = '#';
+		setAttribute(TileType.WALL_TILE);
 	}
 	
 	@Override
 	public String toString(){
 		//check for tile contents
-		if(units.size() > 0){
-			for(Unit u : units){
-				//huilen met de pet op maar ok for now
-				return Character.toString(u.attribute);
-			}
+		if(unit != null){
+			return Character.toString(unit.attribute);
 		}
 		return Character.toString(attribute);
 	}
 	
 	public void pushUnit(Unit u) {
-		this.units.add(u);
+		unit = u;
 		occupied = checkOccupied();
 	}
 	
 	public boolean checkOccupied(){
-		for(Unit u : units){
-			if(u instanceof Actor){
-				return true;
-			}
+		if(unit instanceof Actor){
+			return true;
 		}
 		return false;
+	}
+	
+	public void setAttribute(TileType tt){
+		this.attribute = typeAttributes.get(tt);
 	}
 }

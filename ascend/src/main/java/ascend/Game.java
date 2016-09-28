@@ -4,22 +4,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import ascend.access.GsonMaker;
+
 public class Game {
 	
 	static Random rng=new Random();
 
-	final int height = 32, width=64, roomAmount=10, maxRoomHeight=8, maxRoomWidth=8, minRoomHeight=4, minRoomWidth=4;
-	final char ROOM_ATT = ' ', CORR_ATT = '-';
-
+	public final int height = 32, width=64, roomAmount=10, maxRoomHeight=8, maxRoomWidth=8, minRoomHeight=4, minRoomWidth=4;
+	
+	//field, with more specified lists to iterate over when necessary.
 	Tile[][] field = new Tile[height][width];
 	ArrayList<Room> rooms = new ArrayList<Room>(roomAmount);
 	ArrayList<Tile> corridorTiles = new ArrayList<Tile>();
+	public ArrayList<Tile> allTiles = new ArrayList<Tile>(height * width);
 	
 	//all actors go in here!
-	ArrayList<Actor> actors = new ArrayList<Actor>();
+	public ArrayList<Actor> actors = new ArrayList<Actor>();
 	//and all items here. No items yet though.
 	ArrayList<Item> items = new ArrayList<Item>();
-	
 	
 	//MAIN!!!!!
 	public static void main(String[] args) {
@@ -31,7 +33,8 @@ public class Game {
 		game.setTileAttributes();
 		game.initHero();
 		game.initEnemies(5);
-		printField(game);
+		//printField(game);
+		game.testGson();
 	}
 	
 	//this method creates a field of tiles with height height and width width
@@ -40,6 +43,7 @@ public class Game {
 			Tile[] row = new Tile[width];
 			for(int x=0; x<width; x++){
 				row[x]= new Tile(x, y);
+				allTiles.add(row[x]);
 			}
 			field[y] = row;
 		}
@@ -132,11 +136,11 @@ public class Game {
 	
 	public void setTileAttributes(){
 		for(Tile corridorTile : corridorTiles){
-			corridorTile.attribute = CORR_ATT;
+			corridorTile.setAttribute(Tile.TileType.FLOOR_TILE);
 		}
 		for(Room room : rooms){
 			for(Tile roomTile : room.tiles){
-				roomTile.attribute = ROOM_ATT;
+				roomTile.setAttribute(Tile.TileType.FLOOR_TILE);
 			}
 		}
 	}
@@ -175,9 +179,16 @@ public class Game {
 	public void placeUnit(Unit u){
 		Tile targetTile = rooms.get(rng.nextInt(roomAmount - 1)).getRandomTile();
 		if(!targetTile.occupied){
+			u.currentPosition = targetTile;
 			targetTile.pushUnit(u);
 		} else {
 			placeUnit(u);
 		}
+	}
+	
+	public void testGson(){
+		GsonMaker gsonMaker = new GsonMaker();
+		gsonMaker.setGame(this);
+		gsonMaker.printGame();
 	}
 }
