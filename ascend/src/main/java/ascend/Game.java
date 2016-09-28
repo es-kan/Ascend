@@ -46,7 +46,7 @@ public class Game {
 		game.removeRoomTilesFromCorridors();
 		game.setTileAttributes();
 		game.initHero();
-		
+
 		return game;
 	}
 
