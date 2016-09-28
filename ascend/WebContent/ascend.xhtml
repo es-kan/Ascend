@@ -4,10 +4,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head>
-	<title>Ascend!</title>
-</h:head>
-<h:body>
-	Text!
-</h:body>
+<head>
+<title>Ascend!</title>
+<script src="js/ascendjs.js" />
+<link rel="stylesheet" href="css/ascendcss.css" />
+</head>
+<body>
+	<p>Ascending...</p>
+	<div>
+		<h:outputText value="#{ascend.getGame()}" class="fieldjson"/>
+	</div>
+	<div class="field"/>
+</body>
 </html>
