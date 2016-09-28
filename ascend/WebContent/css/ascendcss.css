@@ -1,0 +1,14 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	background-color: silver;
+}
+
+.fieldjson {
+	font-family: "Courier New";
+	display: none;
+}
+
+.field {
+	font-family: "Courier New";
+}
