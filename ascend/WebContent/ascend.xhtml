@@ -10,10 +10,15 @@
 <link rel="stylesheet" href="css/ascendcss.css" />
 </head>
 <body>
-	<p>Ascending...</p>
-	<div>
-		<h:outputText value="#{ascend.getGame()}" class="fieldjson"/>
+	<h1 class="header">Ascend!</h1>
+	<div class="allJsons">
+		<h:outputText value="#{ascend.getGame()}" class="jsonfield" />
+		<h:outputText value="#{ascend.getActors()}" class="jsonactors" />
 	</div>
-	<div class="field"/>
+	<div class="fieldArea">
+		<div class="field" />
+	</div>
+	<div class="textarea"></div>
+	<div class="credits">@authors P. Bijman and E. Kan, 2016.</div>
 </body>
 </html>

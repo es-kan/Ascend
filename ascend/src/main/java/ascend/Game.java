@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import ascend.access.GsonMaker;
-
 public class Game {
 
 	static Random rng = new Random();
@@ -35,19 +33,15 @@ public class Game {
 		game.initHero();
 		game.initEnemies(5);
 		// printField(game);
-		game.testGson();
 	}
 
-	public static Game initGame() {
-		Game game = new Game();
-
-		game.createField(); // adds tiles to field
-		game.createMultipleRooms();
-		game.removeRoomTilesFromCorridors();
-		game.setTileAttributes();
-		game.initHero();
-		
-		return game;
+	public Game() {
+		createField();
+		createMultipleRooms();
+		removeRoomTilesFromCorridors();
+		setTileAttributes();
+		initHero();
+		initEnemies(5);
 	}
 
 	// this method creates a field of tiles with height height and width width
@@ -104,7 +98,6 @@ public class Game {
 																		// column
 																		// b in
 																		// row
-				// System.out.print(room.tiles[x + roomWidth][y + roomHeight]);
 				room.tiles.add(field[a][b]);
 
 			}
@@ -207,10 +200,5 @@ public class Game {
 		} else {
 			placeUnit(u);
 		}
-	}
-
-	public void testGson() {
-		GsonMaker gsonMaker = new GsonMaker();
-		System.out.println(gsonMaker.getGame());
 	}
 }
