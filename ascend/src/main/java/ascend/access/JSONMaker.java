@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,27 +17,32 @@ import com.google.gson.GsonBuilder;
 
 @Named
 @SessionScoped
-public class GsonMaker {
+@Path("/jsonmaker")
+public class JSONMaker {
 
 	private Game game;
 
 	// default constructor makes new game
-	public GsonMaker() {
+	public JSONMaker() {
 		setGame();
 	}
 
 	// @param game: define <code>this.game</code>
-	public GsonMaker(Game game) {
+	public JSONMaker(Game game) {
 		this.game = game;
 	}
-
+	
+	@GET
+	@Path("/game")
 	public String getGame() {
 		GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
 		gsonBuilder.setExclusionStrategies(new GsonUnitExcluder());
 		Gson gson = gsonBuilder.create();
 		return gson.toJson(game.allTiles);
 	}
-
+	
+	@GET
+	@Path("/actors")
 	public String getActors() {
 		GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
 		Gson gson = gsonBuilder.create();

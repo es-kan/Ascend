@@ -5,7 +5,7 @@
 	version="2.2">
 <managed-bean>
 	<managed-bean-name>ascend</managed-bean-name>
-	<managed-bean-class>ascend.access.GsonMaker</managed-bean-class>
+	<managed-bean-class>ascend.access.JSONMaker</managed-bean-class>
 	<managed-bean-scope>request</managed-bean-scope>
 </managed-bean>
 
