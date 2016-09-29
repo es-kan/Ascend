@@ -7,8 +7,7 @@
 				.parse(document.querySelector(".jsonfield").innerText);
 		var actorjson = JSON
 				.parse(document.querySelector(".jsonactors").innerText);
-		var fieldjson = JSON
-				.parse(document.querySelector(".jsonfield").innerText);
+		
 		for (var i = 0; i < fieldjson.length; i++) {
 			var tile = fieldjson[i];
 			if(tile.occupied == false){
@@ -22,7 +21,6 @@
 				}
 			}
 			//needs to be set to (max) tile.x
-			field.innerHTML += tile.attribute;
 			if (tile.x == 63) {
 				field.innerHTML += "<br/>";
 			}

@@ -25,14 +25,7 @@ public class Game {
 	// MAIN!!!!!
 	public static void main(String[] args) {
 		Game game = new Game();
-
-		game.createField(); // adds tiles to field
-		game.createMultipleRooms();
-		game.removeRoomTilesFromCorridors();
-		game.setTileAttributes();
-		game.initHero();
-		game.initEnemies(5);
-		// printField(game);
+		printField(game);
 	}
 
 
@@ -43,18 +36,6 @@ public class Game {
 		setTileAttributes();
 		initHero();
 		initEnemies(5);
-	}
-	
-	public static Game initGame() {
-		Game game = new Game();
-
-		game.createField(); // adds tiles to field
-		game.createMultipleRooms();
-		game.removeRoomTilesFromCorridors();
-		game.setTileAttributes();
-		game.initHero();
-
-		return game;
 	}
 
 	// this method creates a field of tiles with height height and width width
