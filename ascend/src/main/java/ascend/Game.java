@@ -35,6 +35,7 @@ public class Game {
 		// printField(game);
 	}
 
+<<<<<<< HEAD
 	public Game() {
 		createField();
 		createMultipleRooms();
@@ -42,6 +43,18 @@ public class Game {
 		setTileAttributes();
 		initHero();
 		initEnemies(5);
+=======
+	public static Game initGame() {
+		Game game = new Game();
+
+		game.createField(); // adds tiles to field
+		game.createMultipleRooms();
+		game.removeRoomTilesFromCorridors();
+		game.setTileAttributes();
+		game.initHero();
+
+		return game;
+>>>>>>> refs/remotes/origin/master
 	}
 
 	// this method creates a field of tiles with height height and width width
