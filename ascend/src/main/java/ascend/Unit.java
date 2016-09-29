@@ -2,7 +2,7 @@ package ascend;
 
 public abstract class Unit implements Comparable<Unit>{
 	//temporary set to 'U' to avoid nullPointers?
-	char attribute = 'U';
+	public char attribute = 'U';
 	int comparisonInteger = 0;
 	public Tile currentPosition;
 	
