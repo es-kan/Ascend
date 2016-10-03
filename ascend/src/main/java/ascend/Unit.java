@@ -1,6 +1,10 @@
 package ascend;
 
+import java.util.Random;
+
 public abstract class Unit implements Comparable<Unit>{
+	
+	static Random rng = new Random();
 	//temporary set to 'U' to avoid nullPointers?
 	public char attribute = 'U';
 	int comparisonInteger = 0;

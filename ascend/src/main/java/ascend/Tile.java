@@ -7,9 +7,9 @@ public class Tile {
 
 	public int x;
 	public int y;
-	char attribute;
-	boolean occupied;
-	Unit unit;
+	public char attribute;
+//	boolean occupied;
+	public Unit unit;
 	
 	//init TileTypes and map them to chars.
 	enum TileType{WALL_TILE, FLOOR_TILE};
@@ -35,11 +35,17 @@ public class Tile {
 	
 	public void pushUnit(Unit u) {
 		unit = u;
-		occupied = checkOccupied();
+	}
+	
+	public Unit pullUnit(){
+		Unit pulledUnit = unit;
+		unit = null;
+		checkOccupied();
+		return pulledUnit;
 	}
 	
 	public boolean checkOccupied(){
-		if(unit instanceof Actor){
+		if(unit != null && unit instanceof Actor){
 			return true;
 		}
 		return false;
@@ -47,5 +53,12 @@ public class Tile {
 	
 	public void setAttribute(TileType tt){
 		this.attribute = typeAttributes.get(tt);
+	}
+	
+	public boolean containsHero(){
+		if(unit != null && unit instanceof Hero){
+			return true;
+		}
+		return false;
 	}
 }

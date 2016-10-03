@@ -8,11 +8,10 @@ public class Game {
 
 	static Random rng = new Random();
 
-	public final int height = 32, width = 64, roomAmount = 10, maxRoomHeight = 8, maxRoomWidth = 8, minRoomHeight = 4,
-			minRoomWidth = 4;
+	public final int height = 32, width = 64, roomAmount = 10, maxRoomHeight = 8, maxRoomWidth = 8, minRoomHeight = 4, minRoomWidth = 4;
 
 	// field, with more specified lists to iterate over when necessary.
-	Tile[][] field = new Tile[height][width];
+	public Tile[][] field = new Tile[height][width];
 	ArrayList<Room> rooms = new ArrayList<Room>(roomAmount);
 	ArrayList<Tile> corridorTiles = new ArrayList<Tile>();
 	public ArrayList<Tile> allTiles = new ArrayList<Tile>(height * width);
@@ -21,6 +20,11 @@ public class Game {
 	public ArrayList<Actor> actors = new ArrayList<Actor>();
 	// and all items here. No items yet though.
 	ArrayList<Item> items = new ArrayList<Item>();
+	
+	//is the game over?
+	boolean gameOver = false;
+
+	public Hero hero;
 
 	// MAIN!!!!!
 	public static void main(String[] args) {
@@ -32,7 +36,7 @@ public class Game {
 	public Game() {
 		createField();
 		createMultipleRooms();
-		removeRoomTilesFromCorridors();
+		//removeRoomTilesFromCorridors();
 		setTileAttributes();
 		initHero();
 		initEnemies(5);
@@ -120,6 +124,7 @@ public class Game {
 				}
 			}
 		}
+		removeRoomTilesFromCorridors();
 	}
 
 	public void setCorridors(Room room1, Room room2) {
@@ -173,6 +178,7 @@ public class Game {
 		Hero hero = new Hero(this);
 		placeUnit(hero);
 		actors.add(hero);
+		this.hero = hero;
 	}
 
 	// only makes goblins for now. The goblins, they do nothing.
@@ -188,11 +194,52 @@ public class Game {
 
 	public void placeUnit(Unit u) {
 		Tile targetTile = rooms.get(rng.nextInt(roomAmount - 1)).getRandomTile();
-		if (!targetTile.occupied) {
+		if (!targetTile.checkOccupied()) {
 			u.currentPosition = targetTile;
 			targetTile.pushUnit(u);
 		} else {
 			placeUnit(u);
 		}
+	}
+	
+	public Tile getNeighbour(Tile tile, String direction) {
+		//TODO implements ACT!
+		switch (direction) {
+		case "NORTH":
+			return field[tile.y - 1][tile.x];
+		case "EAST":
+			return field[tile.y][tile.x + 1];
+		case "SOUTH":
+			return field[tile.y + 1][tile.x];
+		case "WEST":
+			return field[tile.y][tile.x - 1];
+		}
+		// illegal direction!
+		throw new IllegalArgumentException("Wrong direction!");
+	}
+	
+	public Tile[] getAllNeighbours(Tile tile){
+		Tile[] neighbours = {field[tile.y - 1][tile.x], field[tile.y][tile.x + 1], field[tile.y + 1][tile.x], field[tile.y][tile.x - 1]};
+		return neighbours;
+	}
+	
+	public Tile[] getSurroundingSquare(Tile tile){
+		ArrayList<Tile> surround = new ArrayList<Tile>(8);
+		for(int y = tile.y - 1; y <=tile.y + 1; y++){
+			for(int x = tile.x - 1; x <=tile.x + 1; x++){
+				surround.add(field[y][x]);
+			}
+		}
+		return surround.toArray(new Tile[surround.size()]);
+	}
+	
+	public Actor[] getNearbyEnemies(Tile tile){
+		ArrayList<Actor> targets = new ArrayList<Actor>();
+		for(Tile neighbourTile : getSurroundingSquare(tile)){
+			if(neighbourTile.unit instanceof Actor){
+				targets.add((Actor) neighbourTile.unit);
+			}
+		}
+		return targets.toArray(new Actor[targets.size()]);
 	}
 }

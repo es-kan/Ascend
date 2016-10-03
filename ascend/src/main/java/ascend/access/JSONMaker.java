@@ -1,59 +1,34 @@
 package ascend.access;
 
-import ascend.Actor;
-import ascend.Game;
-
-import java.util.ArrayList;
-
-import javax.faces.bean.SessionScoped;
-import javax.inject.Named;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
+import javax.enterprise.context.ApplicationScoped;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import ascend.Game;
+
 //this class makes JSON object out fields provided by a Game.
 
-@Named
-@SessionScoped
-@Path("/jsonmaker")
+@ApplicationScoped
 public class JSONMaker {
 
-	private Game game;
-
-	// default constructor makes new game
-	public JSONMaker() {
-		setGame();
-	}
-
-	// @param game: define <code>this.game</code>
-	public JSONMaker(Game game) {
-		this.game = game;
-	}
-	
-	@GET
-	@Path("/game")
-	public String getGame() {
-		GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
+	public String getGameJson(Game game) {
+		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setExclusionStrategies(new GsonUnitExcluder());
 		Gson gson = gsonBuilder.create();
-		return gson.toJson(game.allTiles);
-	}
-	
-	@GET
-	@Path("/actors")
-	public String getActors() {
-		GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
-		ArrayList<ActorJsonRepresentation> actorJsons = new ArrayList<ActorJsonRepresentation>(game.actors.size());
-		for (Actor actor : game.actors) {
-			actorJsons.add(new ActorJsonRepresentation(actor));
-		}
-		return gson.toJson(actorJsons);
+		return gson.toJson(new InitGameJson(game));
 	}
 
-	public void setGame() {
-		game = new Game();
+	public String getActorJsons(Game game) {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		Gson gson = gsonBuilder.create();
+		return gson.toJson(new UpdateGameJson(game));
 	}
+	
+	public String getSimpleGameRepresentation(Game game) {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		Gson gson = gsonBuilder.create();
+		return gson.toJson(new SimpleGameRepresentation(game));
+	}
+
 }
