@@ -30,4 +30,12 @@ public abstract class Enemy extends Actor {
 		return false;
 	}
 	
+	public boolean isSharingRoomWithHero(){
+		for(Room room : game.rooms){
+			if(room.tiles.contains(currentPosition) && room.tiles.contains(game.hero.currentPosition)){
+					return true;
+			}
+		}
+		return false;
+	}
 }

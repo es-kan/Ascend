@@ -6,16 +6,16 @@ public abstract class Actor extends Unit {
 	//ATT: only one per tile.
 	//actor = all enemies + hero
 	public int hp;
-	public int attackPower = 1;
+	int attackPower = 1;
 	
-	public Actor(Game game){
+	Actor(Game game){
 		super(game);
 		comparisonInteger = 1000;
 	}
 	
 	public abstract void act();
 	
-	public boolean move(Tile newLocation){
+	boolean move(Tile newLocation){
 		if(!newLocation.checkOccupied() && newLocation.attribute != Tile.typeAttributes.get(TileType.WALL_TILE)){
 			currentPosition.pullUnit();
 			this.currentPosition = newLocation;
@@ -28,15 +28,33 @@ public abstract class Actor extends Unit {
 		
 	}
 	
-	public void attack(Actor target) {
+	Tile nextTileToGetTo(Tile targetTile){
+		int x = currentPosition.x;
+		int y = currentPosition.y;
+		int tx = targetTile.x;
+		int ty = targetTile.y;
+		if(x > tx){
+			x -= 1;
+		} else if(x < tx){
+			x += 1;
+		}
+		if(y > ty){
+			y -= 1;
+		} else if(y < ty){
+			y += 1;
+		}
+		return game.field[y][x];
+	}
+	
+	void attack(Actor target) {
 		target.receiveAttack(attackPower);
 	}
 	
-	public void receiveAttack(int attackPower) {
+	void receiveAttack(int attackPower) {
 		hp = hp > attackPower ? hp - attackPower : 0;
 	}
 
-	public void die() {
+	void die() {
 		currentPosition.pullUnit();
 	}
 }

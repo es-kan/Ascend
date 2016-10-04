@@ -51,6 +51,11 @@ a.splash-arrow:hover {
     bottom: 50px;
 }
 
+.nameField{
+	padding: 12px 20px;
+	font-family: "Arial";
+}
+
 body {
 	background-color: silver;
 }

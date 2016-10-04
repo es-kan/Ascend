@@ -11,7 +11,7 @@ public class Hero extends Actor {
 		
 	}
 	
-	public boolean move(String direction){
+	private boolean move(String direction){
 		Tile targetTile = game.getNeighbour(currentPosition, direction);
 		return move(targetTile);
 	}

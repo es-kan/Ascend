@@ -30,35 +30,4 @@ public class Goblin extends Enemy {
 			}
 		}
 	}
-	
-	//works
-	public boolean isSharingRoomWithHero(){
-		for(Room room : game.rooms){
-			if(room.tiles.contains(currentPosition) && room.tiles.contains(game.hero.currentPosition)){
-					return true;
-			}
-		}
-		return false;
-	}
-	
-	//test
-	public Tile nextTileToGetTo(Tile targetTile){
-		int x = currentPosition.x;
-		int y = currentPosition.y;
-		int tx = targetTile.x;
-		int ty = targetTile.y;
-		if(x > tx){
-			x -= 1;
-		} else if(x < tx){
-			x += 1;
-		}
-		if(y > ty){
-			y -= 1;
-		} else if(y < ty){
-			y += 1;
-		}
-		return game.field[y][x];
-	}
-
-	
 }
