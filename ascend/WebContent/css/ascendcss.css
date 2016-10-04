@@ -61,6 +61,10 @@ body {
 	text-shadow: 2px 2px 8px #000;
 }
 
+.message{
+	text-align: center;
+}
+
 .field {
 	display: table;
 	margin: auto;
@@ -111,4 +115,6 @@ body {
 
 .heroInfo {
 	text-align: center;
+	font-family: Impact;
+	color: #262626;
 }

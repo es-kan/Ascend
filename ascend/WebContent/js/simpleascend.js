@@ -1,17 +1,12 @@
-var fieldhtml, gamejson, keyDirection, heroInfohtml;
+var fieldhtml, gamejson, keyDirection, heroInfohtml, heroName;
+var loaded = false;
 
 (function() {
 	'use strict';
 	document.addEventListener("DOMContentLoaded", function() {
-//		if($(".splash").is(":visible")) {
-//	        $(".wrapper").css({"opacity":"0"});
-//	    }
-
-	    $(".splash-arrow").click(function() {
-	        $(".splash").slideUp("800", function() {
-	            $(".wrapper").delay(100).animate({"opacity":"1.0"},800);
-	        });
-	    });
+		document.querySelector(".nameField").focus();
+		document.querySelector(".nameField").select();
+	    $(".splash-arrow").click(submitName);
 		
 		fieldhtml = document.querySelector(".field");
 		heroInfohtml = document.querySelector(".heroInfo");
@@ -33,8 +28,10 @@ var fieldhtml, gamejson, keyDirection, heroInfohtml;
 			case 32:
 				keyDirection = "ACT";
 			}
-			console.log(keyDirection);
-			updateField(keyDirection);
+			if(loaded){
+				console.log(keyDirection);
+				updateField(keyDirection);
+			}
 		})
 	});
 })();
@@ -84,4 +81,21 @@ function newGame(){
 	newGameReq.send();
 	
 	representField(gamejson);
+}
+
+function submitName(){
+	event.preventDefault();
+	var inputtedName = document.querySelector(".nameField").value
+	if(inputtedName == "Name..."){
+		var defaultNames = ["Paulus de Plopkabouter", "Borbor", "Proculus de Pastelkleurige", "Jason and also the Argonauts", "Donwald Baardhelm", 
+		                    "YoungCapital Professional", "Cornolas Raekh'var", "Jörgen", "Arno", "Hans", "Ben", "Theuderic Achtervoet"];
+		heroName = defaultNames[Math.floor((Math.random() * defaultNames.length))];
+	} else {
+		heroName = inputtedName;
+	}
+	$(".splash").slideUp("800", function() {
+        $(".wrapper").delay(100).animate({"opacity":"1.0"},800);
+        loaded = true;
+    });
+	document.querySelector(".message").innerHTML = "Go forth, brave " + heroName + "!";
 }
