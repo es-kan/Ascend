@@ -13,4 +13,9 @@ public class GameRepository {
 		}
 		return game;
 	}
+	
+	public Game getNewGame(){
+		game = new Game();
+		return game;
+	}
 }

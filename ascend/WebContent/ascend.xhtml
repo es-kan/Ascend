@@ -6,14 +6,25 @@
 
 <head>
 <title>Ascend!</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="js/simpleascend.js" />
 <link rel="stylesheet" href="css/ascendcss.css" />
 </head>
 <body>
-	<h1 class="header">Ascend!</h1>
-	<div class="field" />
-	<div class="heroInfo"/>
-	<div class="test" />
-	<div class="credits">@authors P. Bijman and E. Kan, 2016.</div>
+	<div class="splash fade-in">
+		<h1 class="splash-title fade-in">LOREM IPSUM DOLOR SIT AMET</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at orci ultricies, bibendum mauris finibus, auctor erat. Morbi tincidunt ut tellus quis commodo. Fusce nec faucibus est. Ut euismod ligula lacus, sit amet semper lorem lacinia a. Phasellus laoreet, velit quis rhoncus malesuada, nulla ipsum lacinia eros, vitae lobortis nibh dolor vel massa. Mauris vitae porta magna. Quisque gravida sed odio sit amet interdum. Mauris accumsan dictum leo, in efficitur lorem elementum eget. Donec ut dictum justo. Sed tellus tellus, faucibus eu elit sed, viverra egestas tortor. Morbi maximus viverra augue rutrum euismod. Proin vitae mauris quis lorem finibus blandit vel ac lectus. Fusce id maximus justo. Sed eget nunc imperdiet nisl convallis laoreet et id ligula. Quisque vitae tempus mi, ut interdum dui. Mauris cursus imperdiet dui, ac condimentum sapien pretium ac.</p>
+		<a href="#" class="splash-arrow fade-in"><img src="img/ascend-arrow.png" alt="" /></a>
+	</div>
+	<div class="maincontent">
+		<h1 class="header">Ascend!</h1>
+		<div class="field" />
+		<div class="heroInfo"/>
+		<div class="resetButton">
+			<button name="reset" class="reset" value="reset" type="button" onclick="newGame()">Get me another!</button>
+		</div>
+		<div class="test" />
+		<div class="credits">@authors P. Bijman and E. Kan, 2016.</div>
+	</div>
 </body>
 </html>

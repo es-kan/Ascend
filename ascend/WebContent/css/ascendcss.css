@@ -1,11 +1,63 @@
 @CHARSET "ISO-8859-1";
 
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fade-in {
+    animation-fill-mode:forwards;
+    animation-duration:0.3s;
+	animation-delay: 0.5s;
+}
+
+.splash {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	min-height: 360px;
+	z-index: 999;
+	background-size: cover;
+	background-attachment: fixed;
+	background-color: #808080;
+	text-align: center;
+}
+
+.splash-title {
+    color: white;
+    font-size: 3em;
+    margin-top: 100px;
+    text-shadow: 0 2px 10px #000;
+    animation-delay: 1s;
+}
+
+.splash p {
+	color: #d9d9d9;
+}
+
+a.splash-arrow {
+    position: absolute;
+    bottom: 55px;
+    transition: all 0.1s ease;
+    animation-delay: 1.5s;
+    display: block;
+    left: 50%;
+    margin-left: -205px;
+}
+
+a.splash-arrow:hover {
+    bottom: 50px;
+}
+
 body {
 	background-color: silver;
 }
 
 .header {
 	text-align: center;
+	color: white;
+	text-shadow: 2px 2px 8px #000;
 }
 
 .allJsons {
@@ -19,6 +71,23 @@ body {
 	font-family: "Courier New";
 	text-align: center;
 	white-space: pre;
+}
+
+.resetButton {
+	text-align: center;
+}
+
+.reset {
+    background-color: #808080;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
 }
 
 .credits {

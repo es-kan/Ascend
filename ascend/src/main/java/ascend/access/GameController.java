@@ -72,4 +72,10 @@ public class GameController {
 		}
 		return jm.getSimpleGameRepresentation(gr.getGame());
 	}
+	
+	@GET
+	@Path("newGame")
+	public String getNewGame(){
+		return jm.getSimpleGameRepresentation(gr.getNewGame());
+	}
 }

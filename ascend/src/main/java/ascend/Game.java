@@ -215,7 +215,7 @@ public class Game {
 			return field[tile.y][tile.x - 1];
 		}
 		// illegal direction!
-		throw new IllegalArgumentException("Wrong direction!");
+		throw new IllegalArgumentException("Not a direction!");
 	}
 	
 	public Tile[] getAllNeighbours(Tile tile){

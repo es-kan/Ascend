@@ -3,6 +3,16 @@ var fieldhtml, gamejson, keyDirection, heroInfohtml;
 (function() {
 	'use strict';
 	document.addEventListener("DOMContentLoaded", function() {
+//		if($(".splash").is(":visible")) {
+//	        $(".wrapper").css({"opacity":"0"});
+//	    }
+
+	    $(".splash-arrow").click(function() {
+	        $(".splash").slideUp("800", function() {
+	            $(".wrapper").delay(100).animate({"opacity":"1.0"},800);
+	        });
+	    });
+		
 		fieldhtml = document.querySelector(".field");
 		heroInfohtml = document.querySelector(".heroInfo");
 		initialize();
@@ -60,4 +70,17 @@ function representField(gamejson){
 		fieldhtml.innerHTML += gamejson["field"][i] + "<br/>";
 	}
 	heroInfohtml.innerHTML = "Your HP: " + gamejson["heroHP"] + ". Mood: " + (gamejson["heroHP"] > 0 ? "Happy!" : "Dead.");
+}
+
+function newGame(){
+	var newGameReq = new XMLHttpRequest();
+	newGameReq.onreadystatechange = function(){
+		if(this.readyState == 4 && this.status == 200) {
+			gamejson = JSON.parse(this.responseText);
+		}
+	}
+	newGameReq.open("GET", "rest/controller/newGame", false);
+	newGameReq.send();
+	
+	representField(gamejson);
 }
