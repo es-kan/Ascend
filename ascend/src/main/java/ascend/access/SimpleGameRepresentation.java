@@ -5,7 +5,7 @@ import ascend.Tile;
 
 public class SimpleGameRepresentation {
 	String[] field;
-	int heroHP;
+	int heroHP, enemiesKilled;
 	public SimpleGameRepresentation(Game game){
 		//build the row strings to send
 		int rowCount = 0;
@@ -23,5 +23,6 @@ public class SimpleGameRepresentation {
 			rowCount++;
 		}
 		heroHP = game.hero.hp;
+		enemiesKilled = game.hero.slayingCount;
 	}
 }

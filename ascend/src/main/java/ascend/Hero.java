@@ -3,10 +3,12 @@ package ascend;
 import java.util.ArrayList;
 
 public class Hero extends Actor {
+	public int slayingCount;
 	public Hero(Game game) {
 		super(game);
 		attribute = 'H';
 		hp = 50;
+		
 	}
 	
 	public boolean move(String direction){
@@ -21,19 +23,19 @@ public class Hero extends Actor {
 	public boolean act(String action) {
 		if(action.equals("ACT")){
 			//find a dude to slap
-			System.out.println(action);
 			ArrayList<Enemy> targets = new ArrayList<Enemy>();
 			for(Tile tile : game.getSurroundingSquare(currentPosition)){
 				if(tile.checkOccupied() && tile.unit instanceof Enemy){
 					targets.add((Enemy) tile.unit);
 				}
-				if(!targets.isEmpty()){
-					attack(targets.get(rng.nextInt(targets.size())));
-				}
+			}
+			if(!targets.isEmpty()){
+				attack(targets.get(rng.nextInt(targets.size())));
 			}
 		} else {
 			return(move(action));
 		}
+		//invalid action!
 		return false;
 	}
 

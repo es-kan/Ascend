@@ -33,6 +33,7 @@ var fieldhtml, gamejson, keyDirection, heroInfohtml;
 			case 32:
 				keyDirection = "ACT";
 			}
+			console.log(keyDirection);
 			updateField(keyDirection);
 		})
 	});
@@ -69,7 +70,7 @@ function representField(gamejson){
 	for(var i=0; i<gamejson["field"].length; i++){
 		fieldhtml.innerHTML += gamejson["field"][i] + "<br/>";
 	}
-	heroInfohtml.innerHTML = "Your HP: " + gamejson["heroHP"] + ". Mood: " + (gamejson["heroHP"] > 0 ? "Happy!" : "Dead.");
+	heroInfohtml.innerHTML = "Your HP: " + gamejson["heroHP"] + ". Mood: " + (gamejson["heroHP"] > 0 ? "Happy!" : "Dead.") + " Kill count: " + gamejson["enemiesKilled"] + ".";
 }
 
 function newGame(){

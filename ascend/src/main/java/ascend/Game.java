@@ -8,7 +8,7 @@ public class Game {
 
 	static Random rng = new Random();
 
-	public final int height = 32, width = 64, roomAmount = 10, maxRoomHeight = 8, maxRoomWidth = 8, minRoomHeight = 4, minRoomWidth = 4;
+	public final int height = 32, width = 64, roomAmount = 10, maxRoomHeight = 8, maxRoomWidth = 8, minRoomHeight = 4, minRoomWidth = 4, amountOfEnemies = 6;
 
 	// field, with more specified lists to iterate over when necessary.
 	public Tile[][] field = new Tile[height][width];
@@ -39,7 +39,7 @@ public class Game {
 		//removeRoomTilesFromCorridors();
 		setTileAttributes();
 		initHero();
-		initEnemies(5);
+		initEnemies(amountOfEnemies);
 	}
 
 	// this method creates a field of tiles with height height and width width
@@ -193,7 +193,6 @@ public class Game {
 	}
 	
 	public Tile getNeighbour(Tile tile, String direction) {
-		//TODO implement ACT!
 		switch (direction) {
 		case "NORTH":
 			return field[tile.y - 1][tile.x];
@@ -213,6 +212,7 @@ public class Game {
 		return neighbours;
 	}
 	
+	//geeft de 8 tiles om de targetTile heen terug
 	public Tile[] getSurroundingSquare(Tile tile){
 		ArrayList<Tile> surround = new ArrayList<Tile>(8);
 		for(int y = tile.y - 1; y <=tile.y + 1; y++){
@@ -223,24 +223,21 @@ public class Game {
 		return surround.toArray(new Tile[surround.size()]);
 	}
 	
-	public Actor[] getNearbyEnemies(Tile tile){
-		ArrayList<Actor> targets = new ArrayList<Actor>();
-		for(Tile neighbourTile : getSurroundingSquare(tile)){
-			if(neighbourTile.unit instanceof Actor){
-				targets.add((Actor) neighbourTile.unit);
-			}
-		}
-		return targets.toArray(new Actor[targets.size()]);
-	}
-	
+	//wordt elke step aangeroepen! Checkt of er actors op 0 hp staan en maakt ze dood. Maakt nieuwe enemies als er doden zijn gevallen.
 	public void checkGameState(){
+		int enemiesToSpawn = 0;
 		ArrayList<Actor> deadThings = new ArrayList<Actor>();
 		for(Actor actor: actors){
 			if(actor.hp == 0){
 				actor.die();
 				deadThings.add(actor);
+				if(actor instanceof Enemy){
+					enemiesToSpawn += 1;
+					hero.slayingCount += 1;
+				}
 			}
 		}
 		actors.removeAll(deadThings);
+		initEnemies(enemiesToSpawn);
 	}
 }
