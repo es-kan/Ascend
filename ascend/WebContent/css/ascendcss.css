@@ -22,6 +22,7 @@
 	background-attachment: fixed;
 	background-color: #808080;
 	text-align: center;
+	font-family: "Helvetica";
 }
 
 .splash-title {
@@ -34,13 +35,13 @@
 
 .splash p {
 	color: #d9d9d9;
+	padding-left: 100px;
+	padding-right: 100px;
 }
 
 a.splash-arrow {
     position: absolute;
     bottom: 55px;
-    transition: all 0.1s ease;
-    animation-delay: 1.5s;
     display: block;
     left: 50%;
     margin-left: -205px;
@@ -58,10 +59,6 @@ body {
 	text-align: center;
 	color: white;
 	text-shadow: 2px 2px 8px #000;
-}
-
-.allJsons {
-	display: none;
 }
 
 .field {
@@ -88,6 +85,11 @@ body {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.reset:hover{
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .credits {

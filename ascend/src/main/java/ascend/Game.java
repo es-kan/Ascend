@@ -68,19 +68,14 @@ public class Game {
 	// this method creates one Room object within the boundaries of the field.
 	public Room createRoom() {
 		boolean isBuilding = true;
-		int topLeftX, topLeftY, roomWidth, roomHeight; // x and y are the
-														// coordinates of the
-														// top left corner of
-														// the Room to be
-														// created
+		int topLeftX, topLeftY, roomWidth, roomHeight;
 		createRoomLoop: do {
 			topLeftX = rng.nextInt(width - 2) + 1;
 			topLeftY = rng.nextInt(height - 2) + 1;
 			// ensure generated room size is between established mins and maxes
 			roomWidth = rng.nextInt(maxRoomWidth - minRoomWidth) + minRoomWidth;
 			roomHeight = rng.nextInt(maxRoomHeight - minRoomHeight) + minRoomWidth;
-			// test if new room would be out of bounds in field, or manifest at
-			// one of the outer edges
+			// test if new room would be out of bounds in field, or manifest at one of the outer edges
 			if ((topLeftX + roomWidth > width - 1 || topLeftY + roomHeight > height - 1)) {
 				continue createRoomLoop;
 			}
@@ -90,14 +85,9 @@ public class Game {
 		Room room = new Room(topLeftX, topLeftX + roomWidth, topLeftY, topLeftY + roomHeight);
 
 		// add tiles from field to room tile arrays
-		for (int a = topLeftY; a < (topLeftY + roomHeight); a++) { // a == row a
-																	// in field
-			for (int b = topLeftX; b < (topLeftX + roomWidth); b++) { // b ==
-																		// column
-																		// b in
-																		// row
+		for (int a = topLeftY; a < (topLeftY + roomHeight); a++) { // a == row a in field
+			for (int b = topLeftX; b < (topLeftX + roomWidth); b++) { // b ==  column b in row
 				room.tiles.add(field[a][b]);
-
 			}
 		}
 		return room;
@@ -181,7 +171,7 @@ public class Game {
 		this.hero = hero;
 	}
 
-	// only makes goblins for now. The goblins, they do nothing.
+	// only makes goblins for now. No other enemies exist other than abstract Enemies.
 	public void initEnemies(int amountOfEnemies) {
 		Enemy[] newEnemies = new Enemy[amountOfEnemies];
 		for (int i = 0; i < amountOfEnemies; i++) {
@@ -203,7 +193,7 @@ public class Game {
 	}
 	
 	public Tile getNeighbour(Tile tile, String direction) {
-		//TODO implements ACT!
+		//TODO implement ACT!
 		switch (direction) {
 		case "NORTH":
 			return field[tile.y - 1][tile.x];
@@ -241,5 +231,16 @@ public class Game {
 			}
 		}
 		return targets.toArray(new Actor[targets.size()]);
+	}
+	
+	public void checkGameState(){
+		ArrayList<Actor> deadThings = new ArrayList<Actor>();
+		for(Actor actor: actors){
+			if(actor.hp == 0){
+				actor.die();
+				deadThings.add(actor);
+			}
+		}
+		actors.removeAll(deadThings);
 	}
 }

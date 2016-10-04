@@ -64,12 +64,13 @@ public class GameController {
 	@POST
 	@Path("moveSimple")
 	public String getSimpleRepresentation(String direction){
-		boolean moveSuccess = gr.getGame().hero.move(direction);
-		if(moveSuccess){
+		boolean actSuccess = gr.getGame().hero.act(direction);
+		if(actSuccess){
 			for(Actor actor : gr.getGame().actors){
 				actor.act();
 			}
 		}
+		gr.getGame().checkGameState();
 		return jm.getSimpleGameRepresentation(gr.getGame());
 	}
 	

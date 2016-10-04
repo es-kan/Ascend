@@ -35,6 +35,10 @@ public abstract class Actor extends Unit {
 	public void receiveAttack(int attackPower) {
 		hp = hp > attackPower ? hp - attackPower : 0;
 	}
+
+	public void die() {
+		currentPosition.pullUnit();
+	}
 }
 
 
